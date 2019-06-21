@@ -37,7 +37,7 @@
 
         function loadProducts() {
             console.log('loadProducts');
-            var url = "http://localhost:8080/servlet-webservice-demo/ListProductServlet";
+            var url = "http://localhost:8080/servletwebservice/ListProductServlet";
             ajax(url, "GET", function (response) {
                 console.log(response);
                 var products = JSON.parse(response);
