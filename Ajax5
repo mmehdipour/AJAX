@@ -1,0 +1,42 @@
+function ajaxGET(url, formData) {
+    console.log(formData);
+    var promiseObj = new Promise(function (resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var response = this.responseText;
+                resolve(response);
+            }
+            else if (this.readyState == 4 && this.status != 200) {
+                reject(this.responseText);
+            }
+        }
+        xhr.open("GET", url + "?"+ formData, true);
+        xhr.send();
+    });
+    return promiseObj;
+}
+
+var url = "http://localhost:8080/servlet-webservice-demo/AddProductServlet";
+            var productName = document.getElementById("productName").value;
+            var price = document.getElementById("price").value;
+            var formData = "productName="+productName+"&price="+ price;
+            console.log(formData);
+            var msg = document.querySelector("#message");
+
+            ajaxGET(url, formData).then(function (response) { 
+                console.log(response); 
+                msg.innerHTML="<font color='green'>Success</font>";
+            },
+            function(error){
+                msg.innerHTML="<font color='red'>Error - " + error + "</font>";
+            });
+            
+            
+            
+            
+            <form onsubmit="return addProduct()">
+        Product Name: <input type="text" name="productName" id="productName" required /> <br/>
+        Price <input type="number" name="price" id="price" required /> <br/>
+        <button type="submit">Submit</button>
+        </form>
